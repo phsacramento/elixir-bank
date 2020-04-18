@@ -7,5 +7,7 @@ defmodule BankWeb.Router do
 
   scope "/api", BankWeb do
     pipe_through :api
+
+    post("/accounts", AccountsController, :create)
   end
 end

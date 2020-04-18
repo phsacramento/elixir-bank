@@ -24,6 +24,12 @@ defmodule BankWeb do
       import Plug.Conn
       import BankWeb.Gettext
       alias BankWeb.Router.Helpers, as: Routes
+
+      import BankWeb.Helpers.View,
+        only: [
+          render_create: 2,
+          render_bad_request: 1
+        ]
     end
   end
 

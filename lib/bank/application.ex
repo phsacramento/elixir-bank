@@ -10,6 +10,8 @@ defmodule Bank.Application do
     children = [
       # Start the Ecto repository
       Bank.Repo,
+      # Start Vault
+      Bank.Vault,
       # Start the endpoint when the application starts
       BankWeb.Endpoint
       # Starts a worker by calling: Bank.Worker.start_link(arg)

@@ -22,10 +22,11 @@ defmodule BankWeb.AccountsController do
 
     params
     |> Parameters.filter(required: required_params, optional: optional_params)
+    |> Parameters.atomize_keys()
     |> create_account()
     |> render_create(conn)
   end
 
-  defp create_account(%{} = params), do: Mutator.create(params)
+  defp create_account(%{} = params), do: Mutator.create_or_update(params)
   defp create_account(error), do: error
 end

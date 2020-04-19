@@ -38,7 +38,7 @@ defmodule BankWeb.AccountsControllerTest do
     end
 
     test "create an invoice with a empty cpf", %{conn: conn} do
-      cpf = nil
+      cpf = ""
 
       body_request = %{
         cpf: cpf,

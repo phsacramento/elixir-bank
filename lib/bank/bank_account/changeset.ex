@@ -7,6 +7,7 @@ defmodule Bank.BankAccount.Changeset do
   import Brcpfcnpj.Changeset
 
   alias Bank.Account
+  alias Bank.BankAccount.Loader
 
   @params_required ~w(cpf)a
   @params_optional ~w(birth_date city country email gender name state referral_code)a
@@ -17,12 +18,21 @@ defmodule Bank.BankAccount.Changeset do
     |> cast(attrs, @params_required ++ @params_optional)
     |> validate_required(@params_required)
     |> validate_cpf(:cpf)
-    |> unique_constraint(:cpf_hash)
+    |> validate_finished_account()
     |> put_hashed_fields()
   end
 
   defp put_hashed_fields(changeset) do
     changeset
     |> put_change(:cpf_hash, get_field(changeset, :cpf))
+  end
+
+  defp validate_finished_account(changeset) do
+    cpf = get_field(changeset, :cpf)
+
+    case Loader.get_by(%{cpf_hash: cpf, status: :COMPLETE}) do
+      nil -> changeset
+      _account -> add_error(changeset, :cpf, "There is already an account for the cpf informed")
+    end
   end
 end

@@ -50,5 +50,9 @@ defmodule Bank.BankAccount.ChangesetTest do
                cpf: {"Invalid Cpf", [validation: :cpf]}
              ]
     end
+
+    test "duplicate cpf" do
+
+    end
   end
 end

@@ -1,6 +1,8 @@
 defmodule Bank.BankAccount.Loader do
   @moduledoc false
 
+  import Ecto.Query
+
   alias Bank.Account
   alias Bank.Repo
 
@@ -21,4 +23,21 @@ defmodule Bank.BankAccount.Loader do
 
   """
   def get(cpf), do: Repo.get_by(Account, cpf_hash: cpf)
+
+  def get_by(%{} = filters) do
+    filters
+    |> Enum.reduce(base_get_by(), &apply_where/2)
+    |> Repo.one()
+    |> format_response()
+  end
+
+  defp base_get_by, do: from(a in Account)
+
+  defp apply_where({_key, nil}, query), do: query
+
+  defp apply_where({key, value}, query),
+    do: from(q in query, where: field(q, ^key) == ^value)
+
+  defp format_response([]), do: nil
+  defp format_response(response), do: response
 end

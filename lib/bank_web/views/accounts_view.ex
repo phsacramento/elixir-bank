@@ -10,7 +10,9 @@ defmodule BankWeb.AccountsView do
   def render("account.json", %{accounts: account}) do
     %{
       id: account.id,
-      status: account.status
+      status: account.status,
+      cpf: account.cpf_hash,
+      name: account.name,
     }
   end
 end

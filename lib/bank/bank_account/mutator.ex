@@ -3,6 +3,9 @@ defmodule Bank.BankAccount.Mutator do
 
   alias Bank.Account
   alias Bank.{BankAccount.Changeset, BankAccount.Loader, Repo}
+
+  alias Bank.Invitation.Mutator, as: InvitationMutator
+  alias Bank.ReferralCode.Loader, as: ReferralCodeLoader
   alias Bank.ReferralCode.Mutator, as: ReferralCodeMutator
 
   def create(attrs) do
@@ -22,6 +25,7 @@ defmodule Bank.BankAccount.Mutator do
     |> Changeset.build(attrs)
     |> Repo.insert_or_update()
     |> create_referral_code()
+    |> create_referral(attrs)
   end
 
   defp create_referral_code({:ok, %Account{} = account} = result) do
@@ -38,4 +42,25 @@ defmodule Bank.BankAccount.Mutator do
   end
 
   defp create_referral_code({:error, _} = error), do: error
+
+  defp create_referral(
+         {:ok, %Account{} = account} = result,
+         %{referral_code: referral_code} = _attrs
+       ) do
+    case ReferralCodeLoader.get(referral_code) do
+      referral ->
+        InvitationMutator.create(%{
+          referral_account_id: referral.account_id,
+          account_id: account.id
+        })
+    end
+
+    result
+  end
+
+  defp create_referral({:ok, %Account{} = _} = result, _attrs) do
+    result
+  end
+
+  defp create_referral({:error, _} = error, _attrs), do: error
 end

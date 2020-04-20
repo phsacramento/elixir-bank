@@ -3,6 +3,25 @@ defmodule BankWeb.Helpers.View do
 
   def render_bad_request(conn), do: handle_bad_request(nil, conn)
 
+  def render_index(nil, conn) do
+    conn
+    |> put_view(HermesApi.ErrorView)
+    |> put_status(:not_found)
+    |> render("404.json")
+  end
+
+  def render_index({:error, %{errors: errors}}, conn),
+    do: handle_unprocessable_entity(errors, conn)
+
+  def render_index([], conn) do
+    conn
+    |> put_view(HermesApi.ErrorView)
+    |> put_status(:not_found)
+    |> render("404.json")
+  end
+
+  def render_index(index, conn), do: render(conn, "index.json", index: index)
+
   def render_create({:ok, created}, conn) do
     conn
     |> put_status(:created)

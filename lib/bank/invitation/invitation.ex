@@ -4,10 +4,9 @@ defmodule Bank.Invitation do
   use Bank.Schema
 
   alias Bank.Account
-  alias Bank.ReferralCode
 
   schema "invitations" do
-    belongs_to :referral_code, ReferralCode
+    belongs_to :referral_account, Account
     belongs_to :account, Account
 
     timestamps()

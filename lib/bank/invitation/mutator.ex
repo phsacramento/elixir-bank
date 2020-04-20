@@ -6,6 +6,6 @@ defmodule Bank.Invitation.Mutator do
   def create(attrs) do
     attrs
     |> Changeset.build()
-    |> Repo.insert()
+    |> Repo.insert_or_update()
   end
 end

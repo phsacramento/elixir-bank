@@ -9,5 +9,6 @@ defmodule BankWeb.Router do
     pipe_through :api
 
     post("/accounts", AccountsController, :create)
+    post("/referrals", ReferralsController, :index)
   end
 end

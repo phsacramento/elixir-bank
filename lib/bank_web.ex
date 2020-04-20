@@ -28,6 +28,7 @@ defmodule BankWeb do
       import BankWeb.Helpers.View,
         only: [
           render_create: 2,
+          render_index: 2,
           render_bad_request: 1
         ]
     end

@@ -7,7 +7,7 @@ defmodule Bank.Invitation.Changeset do
 
   alias Bank.Invitation
 
-  @params_required ~w(referral_code_id account_id)a
+  @params_required ~w(referral_account_id account_id)a
   @params_optional ~w()a
 
   @doc false
@@ -15,5 +15,6 @@ defmodule Bank.Invitation.Changeset do
     struct
     |> cast(attrs, @params_required ++ @params_optional)
     |> validate_required(@params_required)
+    |> unique_constraint(:unique_indication, name: :unique_indication)
   end
 end

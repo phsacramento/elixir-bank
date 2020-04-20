@@ -4,7 +4,6 @@ defmodule Bank.ReferralCode do
   use Bank.Schema
 
   alias Bank.Account
-  alias Bank.Invitation
 
   schema "referral_codes" do
     field :code, :string

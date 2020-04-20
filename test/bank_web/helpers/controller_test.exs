@@ -17,7 +17,7 @@ defmodule BankWeb.Helpers.ControllerTest do
     end
 
     test "clear ecto meta data from response" do
-      attrs = %{cpf: "03480282539"}
+      attrs = %{cpf: "853.479.740-44"}
       account = Changeset.build(%Account{}, attrs)
 
       assert {:created, parsed_account} =

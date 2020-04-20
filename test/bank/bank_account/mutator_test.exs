@@ -76,7 +76,7 @@ defmodule Bank.BankAccount.MutatorTest do
     end
 
     test "not allow accounts with same cpf" do
-      cpf = "03480282539"
+      cpf = "853.479.740-44"
 
       attrs = %{
         cpf: cpf,

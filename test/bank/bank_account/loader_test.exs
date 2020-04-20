@@ -8,7 +8,7 @@ defmodule Bank.BankAccount.LoaderTest do
 
   describe "get/1" do
     test "get a account by cpf" do
-      cpf = "03480282539"
+      cpf = "853.479.740-44"
 
       attrs = %{
         cpf: cpf,

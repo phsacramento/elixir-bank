@@ -5,12 +5,14 @@ defmodule BankWeb.AccountsControllerTest do
 
   alias Bank.BankAccount.Loader, as: AccountLoader
   alias Bank.BankAccount.Mutator, as: AccountMutator
+  alias Bank.Invitation.Loader, as: InvitationLoader
+  alias Bank.ReferralCode.Loader, as: ReferralCodeLoader
 
   @moduletag capture_log: true
 
   describe "POST /api/accounts [create]" do
     test "create an account with valid cpf", %{conn: conn} do
-      cpf = "03480282539"
+      cpf = "853.479.740-44"
 
       body_request = %{
         cpf: cpf,
@@ -94,7 +96,7 @@ defmodule BankWeb.AccountsControllerTest do
     end
 
     test "validate duplicated cpf", %{conn: conn} do
-      cpf = "03480282539"
+      cpf = "853.479.740-44"
 
       body_request = %{
         cpf: cpf,
@@ -120,6 +122,57 @@ defmodule BankWeb.AccountsControllerTest do
                  %{"cpf" => "There is already an account for the cpf informed"}
                ]
              } = response
+    end
+
+    test "test a invitation", %{conn: conn} do
+      cpf = "853.479.740-44"
+
+      attrs = %{
+        cpf: cpf,
+        name: "Paulo Henrique dos Santos Sacramento",
+        birth_date: "06/01/2990",
+        country: "BR",
+        email: "contato@henriquesacramento.net",
+        gender: "MALE",
+        state: "BA",
+        city: "Teixeira de Freitas"
+      }
+
+      {:ok, referral_account} = AccountMutator.create_or_update(attrs)
+
+      referral_code = ReferralCodeLoader.get_by(%{account_id: referral_account.id})
+
+      body_request = %{
+        cpf: "215.918.660-06",
+        name: "Paulo Henrique dos Santos Sacramento",
+        birth_date: "06/01/2990",
+        country: "BR",
+        email: "contato@henriquesacramento.net",
+        gender: "MALE",
+        city: "Teixeira de Freitas",
+        referral_code: referral_code.code
+      }
+
+      response =
+        conn
+        |> put_req_header("content-type", "application/json")
+        |> post(Routes.accounts_path(conn, :create), body_request)
+        |> json_response(201)
+
+      assert %{
+               "id" => id,
+               "status" => "PENDING",
+               "invitation_code" => ""
+             } = response
+
+      account = AccountLoader.get("215.918.660-06")
+
+      assert account
+
+      assert InvitationLoader.get_by(%{
+               referral_account_id: referral_account.id,
+               account_id: account.id
+             })
     end
   end
 end

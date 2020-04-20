@@ -25,7 +25,7 @@ defmodule Bank.BankAccount.ChangesetTest do
 
   describe "build/2" do
     test "with valid cpf should be valid" do
-      attrs = %{cpf: "03480282539"}
+      attrs = %{cpf: "853.479.740-44"}
       changeset = Changeset.build(%Account{}, attrs)
       assert changeset.valid?
     end

@@ -9,7 +9,7 @@ defmodule BankWeb.AccountsControllerTest do
   @moduletag capture_log: true
 
   describe "POST /api/accounts [create]" do
-    test "create an invoice with valid cpf", %{conn: conn} do
+    test "create an account with valid cpf", %{conn: conn} do
       cpf = "03480282539"
 
       body_request = %{
@@ -20,8 +20,7 @@ defmodule BankWeb.AccountsControllerTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       response =
@@ -32,10 +31,12 @@ defmodule BankWeb.AccountsControllerTest do
 
       assert %{
                "id" => id,
-               "status" => "COMPLETE"
+               "status" => "COMPLETE",
+               "invitation_code" => invitation_code
              } = response
 
       assert cpf |> AccountLoader.get()
+      assert invitation_code
     end
 
     test "create an account with a empty cpf", %{conn: conn} do
@@ -49,8 +50,7 @@ defmodule BankWeb.AccountsControllerTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       response =
@@ -77,8 +77,7 @@ defmodule BankWeb.AccountsControllerTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       response =
@@ -105,8 +104,7 @@ defmodule BankWeb.AccountsControllerTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       {:ok, _} = AccountMutator.create_or_update(body_request)

@@ -3,6 +3,7 @@ defmodule Bank.BankAccount.Mutator do
 
   alias Bank.Account
   alias Bank.{BankAccount.Changeset, BankAccount.Loader, Repo}
+  alias Bank.ReferralCode.Mutator, as: ReferralCodeMutator
 
   def create(attrs) do
     attrs
@@ -20,11 +21,21 @@ defmodule Bank.BankAccount.Mutator do
     result
     |> Changeset.build(attrs)
     |> Repo.insert_or_update()
+    |> create_referral_code()
   end
 
-  def update(%Account{} = account, %{} = new_attrs) do
-    account
-    |> Changeset.build(new_attrs)
-    |> Repo.update()
+  defp create_referral_code({:ok, %Account{} = account} = result) do
+    if account.status == :COMPLETE do
+      attrs = %{
+        code: ReferralCode.Code.generate(8, :alpha),
+        account_id: account.id
+      }
+
+      ReferralCodeMutator.create(attrs)
+    end
+
+    result
   end
+
+  defp create_referral_code({:error, _} = error), do: error
 end

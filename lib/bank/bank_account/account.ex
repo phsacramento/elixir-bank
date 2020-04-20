@@ -2,6 +2,8 @@ defmodule Bank.Account do
   @moduledoc false
 
   use Bank.Schema
+  alias Bank.Invitation
+  alias Bank.ReferralCode
 
   schema "accounts" do
     field :birth_date, Cloak.Ecto.SHA256
@@ -14,7 +16,9 @@ defmodule Bank.Account do
     field :name, Cloak.Ecto.SHA256
     field :state, :string
     field :status, Bank.Enums.AccountStatus, default: :PENDING
-    field :referral_code, :string
+
+    has_many :invitations, Invitation
+    has_one :referral_code, ReferralCode
 
     timestamps()
   end

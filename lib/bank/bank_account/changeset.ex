@@ -10,7 +10,7 @@ defmodule Bank.BankAccount.Changeset do
   alias Bank.BankAccount.Loader
 
   @params_required ~w(cpf)a
-  @params_optional ~w(birth_date city country email gender name state referral_code status)a
+  @params_optional ~w(birth_date city country email gender name state status)a
 
   @doc false
   def build(struct \\ %Account{}, attrs) do
@@ -20,7 +20,6 @@ defmodule Bank.BankAccount.Changeset do
     |> validate_cpf(:cpf)
     |> put_hashed_fields()
     |> flag_complete()
-    # |> generate_referral_code()
     |> validate_finished_account()
   end
 
@@ -28,10 +27,6 @@ defmodule Bank.BankAccount.Changeset do
     changeset
     |> put_change(:cpf_hash, get_field(changeset, :cpf))
   end
-
-  # defp generate_referral_code(%{valid?: false} = changeset), do: changeset
-  # defp generate_referral_code(%{valid?: true} = changeset),
-  #   do: put_change(changeset, :status, generate_referral_code_if_complete(changeset))
 
   defp flag_complete(%{valid?: false} = changeset), do: changeset
 
@@ -45,14 +40,6 @@ defmodule Bank.BankAccount.Changeset do
       :PENDING
     end
   end
-
-  # defp generate_referral_code_if_complete(changeset) do
-  #   if is_complete?(changeset) do
-  #     :COMPLETE
-  #   else
-  #     :PENDING
-  #   end
-  # end
 
   defp is_complete?(changeset) do
     Enum.all?(

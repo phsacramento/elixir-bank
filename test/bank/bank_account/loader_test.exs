@@ -18,8 +18,7 @@ defmodule Bank.BankAccount.LoaderTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       Mutator.create(attrs)

@@ -18,8 +18,7 @@ defmodule Bank.BankAccount.ChangesetTest do
                gender: nil,
                name: nil,
                state: nil,
-               status: :PENDING,
-               referral_code: nil
+               status: :PENDING
              } = %Account{}
     end
   end

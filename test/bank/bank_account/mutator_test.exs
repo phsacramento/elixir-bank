@@ -17,8 +17,7 @@ defmodule Bank.BankAccount.MutatorTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       assert {:ok, %{cpf: cpf}} = Mutator.create(attrs)
@@ -42,8 +41,7 @@ defmodule Bank.BankAccount.MutatorTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       assert {:ok, %{cpf: cpf}} = Mutator.create(attrs)
@@ -60,11 +58,10 @@ defmodule Bank.BankAccount.MutatorTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
-      Mutator.create(attrs)
+      Mutator.create_or_update(attrs)
 
       update_attrs = %{
         cpf: cpf,
@@ -90,7 +87,6 @@ defmodule Bank.BankAccount.MutatorTest do
         country: "BR",
         state: "BA",
         city: "Teixeira de Freitas",
-        referral_code: "12345678",
         status: :COMPLETE
       }
 
@@ -103,61 +99,10 @@ defmodule Bank.BankAccount.MutatorTest do
         email: "contato@henriquesacramento.net",
         gender: "MALE",
         state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
+        city: "Teixeira de Freitas"
       }
 
       assert {:error, %{}} = Mutator.create_or_update(update_attrs)
-    end
-  end
-
-  describe "update/2" do
-    test "update an transactions attributes" do
-      cpf = Brcpfcnpj.cpf_generate(true)
-
-      attrs = %{
-        cpf: cpf,
-        name: "Paulo Henrique dos Santos Sacramento",
-        birth_date: "06/01/2990",
-        email: "contato@henriquesacramento.net",
-        gender: "MALE",
-        state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
-      }
-
-      Mutator.create_or_update(attrs)
-
-      account = Loader.get(cpf)
-
-      new_attributes = %{
-        name: "Henrique Sacramento"
-      }
-
-      assert {:ok, _} = Mutator.update(account, new_attributes)
-    end
-
-    test "invalid attrs" do
-      cpf = Brcpfcnpj.cpf_generate()
-
-      attrs = %{
-        cpf: cpf,
-        name: "Paulo Henrique dos Santos Sacramento",
-        birth_date: "06/01/2990",
-        email: "contato@henriquesacramento.net",
-        gender: "MALE",
-        state: "BA",
-        city: "Teixeira de Freitas",
-        referral_code: "12345678"
-      }
-
-      {:ok, account} = Mutator.create_or_update(attrs)
-
-      new_attributes = %{
-        cpf: ""
-      }
-
-      assert {:error, _} = Mutator.update(account, new_attributes)
     end
   end
 end

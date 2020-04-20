@@ -9,7 +9,6 @@ defmodule Bank.ReferralCode do
   schema "referral_codes" do
     field :code, :string
 
-    has_many :invitations, Invitation
     belongs_to :account, Account
 
     timestamps()

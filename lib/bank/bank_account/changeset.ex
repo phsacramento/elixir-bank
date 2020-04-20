@@ -9,8 +9,10 @@ defmodule Bank.BankAccount.Changeset do
   alias Bank.Account
   alias Bank.BankAccount.Loader
 
+  # alias Bank.ReferralCode.Loader, as: ReferralCodeLoader
+
   @params_required ~w(cpf)a
-  @params_optional ~w(birth_date city country email gender name state status)a
+  @params_optional ~w(birth_date city country email gender name state status referral_code)a
 
   @doc false
   def build(struct \\ %Account{}, attrs) do
@@ -26,6 +28,9 @@ defmodule Bank.BankAccount.Changeset do
   defp put_hashed_fields(changeset) do
     changeset
     |> put_change(:cpf_hash, get_field(changeset, :cpf))
+    |> put_change(:email_hash, get_field(changeset, :email))
+    |> put_change(:name_hash, get_field(changeset, :name))
+    |> put_change(:birth_date_hash, get_field(changeset, :birth_date))
   end
 
   defp flag_complete(%{valid?: false} = changeset), do: changeset

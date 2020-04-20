@@ -12,7 +12,7 @@ defmodule BankWeb.AccountsView do
       id: account.id,
       status: account.status,
       cpf: account.cpf_hash,
-      name: account.name,
+      name: account.name
     }
   end
 end

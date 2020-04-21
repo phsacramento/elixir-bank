@@ -16,10 +16,10 @@ config :bank, Bank.TestVault,
   ciphers: [
     default:
       {Cloak.Ciphers.AES.GCM,
-       tag: "AES.GCM.V1", key: Base.decode64!("3Jnb0hZiHIzHTOih12961237t2cTEPEpY98Tu1wvQkPfq/XwqE123w=")},
+       tag: "AES.GCM.V1", key: Base.decode64!("3Jnb0hZiHIzHTOih7t2cTEPEpY98Tu1wvQkPfq/XwqE=")},
     secondary:
       {Cloak.Ciphers.AES.CTR,
-       tag: "AES.CTR.V1", key: Base.decode64!("o5IzV8xluncassadf8asdh0m0/8HNHzh+3MCBBvYZa0mv4CsZic5qI=")}
+       tag: "AES.CTR.V1", key: Base.decode64!("o5IzV8xlunc0m0/8HNHzh+3MCBBvYZa0mv4CsZic5qI=")}
   ]
 
 # We don't run a server during test. If one is required,

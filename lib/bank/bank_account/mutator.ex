@@ -48,6 +48,7 @@ defmodule Bank.BankAccount.Mutator do
          %{referral_code: referral_code} = _attrs
        ) do
     case ReferralCodeLoader.get(referral_code) do
+      nil -> :do_nothing
       referral ->
         InvitationMutator.create(%{
           referral_account_id: referral.account_id,

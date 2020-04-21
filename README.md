@@ -124,14 +124,14 @@ Header
 
 ```json
 {
-	"cpf": "861.370.560-07",
-	"name": "Paulo Henrique dos Santos Sacramento",
-	"birth_date": "06/01/2990",
-	"email": "contato@henriquesacramento.net",
-	"gender": "MALE",
-	"state": "BA",
-	"city": "Teixeira de Freitas",
-    "country": "BR"
+"cpf": "861.370.560-07",
+"name": "Paulo Henrique dos Santos Sacramento",
+"birth_date": "06/01/2990",
+"email": "contato@henriquesacramento.net",
+"gender": "MALE",
+"state": "BA",
+"city": "Teixeira de Freitas",
+"country": "BR"
 }
 ```
 
@@ -154,26 +154,26 @@ Retorno esperado
 
 ```json
 {
-  "cpf": "861.370.560-07",
-  "id": "d7cb33af-27c0-41dc-b6f6-67a54766dbc6",
-  "invitation_code": "OiFWmBsQ",
-  "name": "Paulo Henrique dos Santos Sacramento",
-  "status": "COMPLETE"
+"cpf": "861.370.560-07",
+"id": "d7cb33af-27c0-41dc-b6f6-67a54766dbc6",
+"invitation_code": "OiFWmBsQ",
+"name": "Paulo Henrique dos Santos Sacramento",
+"status": "COMPLETE"
 }```
 
 | Exemplo de request utilizando referral_code
 
 ```json
 {
-	"cpf": "861.370.560-07",
-	"name": "Paulo Henrique dos Santos Sacramento",
-	"birth_date": "06/01/2990",
-	"email": "contato@henriquesacramento.net",
-	"gender": "MALE",
-	"state": "BA",
-	"city": "Teixeira de Freitas",
-    "country": "BR",
-    "referral_code": "ArvBFSHJ"
+"cpf": "861.370.560-07",
+"name": "Paulo Henrique dos Santos Sacramento",
+"birth_date": "06/01/2990",
+"email": "contato@henriquesacramento.net",
+"gender": "MALE",
+"state": "BA",
+"city": "Teixeira de Freitas",
+"country": "BR",
+"referral_code": "ArvBFSHJ"
 }
 ```
 

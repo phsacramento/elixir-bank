@@ -39,6 +39,7 @@ defmodule Bank.MixProject do
       {:ecto_enum, "~> 1.4"},
       {:ecto_sql, "~> 3.1"},
       {:gettext, "~> 0.11"},
+      {:joken, "~> 2.0"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phoenix, "~> 1.4.16"},

@@ -11,6 +11,17 @@ defmodule BankWeb.AccountsControllerTest do
   @moduletag capture_log: true
 
   describe "POST /api/accounts [create]" do
+    test "without authentication token", %{conn: conn} do
+      response =
+        conn
+        |> put_req_header("content-type", "application/json")
+        |> post(Routes.accounts_path(conn, :create), %{})
+        |> json_response(401)
+
+      expected_error = %{"errors" => %{"detail" => "Unauthorized"}}
+      assert response == expected_error
+    end
+
     test "create an account with valid cpf", %{conn: conn} do
       cpf = "853.479.740-44"
 
@@ -27,6 +38,7 @@ defmodule BankWeb.AccountsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.accounts_path(conn, :create), body_request)
         |> json_response(201)
@@ -57,6 +69,7 @@ defmodule BankWeb.AccountsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.accounts_path(conn, :create), body_request)
         |> json_response(422)
@@ -84,6 +97,7 @@ defmodule BankWeb.AccountsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.accounts_path(conn, :create), body_request)
         |> json_response(422)
@@ -113,6 +127,7 @@ defmodule BankWeb.AccountsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.accounts_path(conn, :create), body_request)
         |> json_response(422)
@@ -155,6 +170,7 @@ defmodule BankWeb.AccountsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.accounts_path(conn, :create), body_request)
         |> json_response(201)

@@ -8,6 +8,8 @@ config :bank, Bank.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :joken, default_signer: "znetcsgxsKwQTuFSMFZ/DwqD/r3Olr9cXbiZac6AVGIMYkZkceozUiRF3nOzi6ZR"
+
 config :bank, Bank.TestVault,
   json_library: Jason,
   ciphers: [

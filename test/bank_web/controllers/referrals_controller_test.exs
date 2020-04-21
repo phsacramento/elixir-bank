@@ -49,6 +49,7 @@ defmodule BankWeb.Controllers.ReferralsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.referrals_path(conn, :index), body_request)
         |> json_response(200)
@@ -83,6 +84,7 @@ defmodule BankWeb.Controllers.ReferralsControllerTest do
 
       response =
         conn
+        |> put_authentication_token()
         |> put_req_header("content-type", "application/json")
         |> post(Routes.referrals_path(conn, :index), body_request)
         |> json_response(422)

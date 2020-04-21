@@ -5,7 +5,7 @@ defmodule BankWeb.Helpers.View do
 
   def render_index(nil, conn) do
     conn
-    |> put_view(HermesApi.ErrorView)
+    |> put_view(BankWeb.ErrorView)
     |> put_status(:not_found)
     |> render("404.json")
   end
@@ -15,7 +15,7 @@ defmodule BankWeb.Helpers.View do
 
   def render_index([], conn) do
     conn
-    |> put_view(HermesApi.ErrorView)
+    |> put_view(BankWeb.ErrorView)
     |> put_status(:not_found)
     |> render("404.json")
   end

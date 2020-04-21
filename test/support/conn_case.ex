@@ -22,6 +22,7 @@ defmodule BankWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       alias BankWeb.Router.Helpers, as: Routes
+      import BankWeb.AuthenticationHelper
 
       # The default endpoint for testing
       @endpoint BankWeb.Endpoint

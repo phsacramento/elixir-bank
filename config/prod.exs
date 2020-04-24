@@ -14,6 +14,8 @@ config :bank, BankWeb.Endpoint,
   url: [host: "app-elixir-banking.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
+config :joken, default_signer: System.get_env("JOKEN_SIGNER")
+
 # Do not print debug messages in production
 config :logger, level: :info
 

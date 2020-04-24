@@ -56,9 +56,13 @@ defmodule Bank.BankAccount.Changeset do
   defp validate_finished_account(changeset) do
     cpf = get_field(changeset, :cpf)
 
-    case Loader.get_by(%{cpf_hash: cpf, status: :COMPLETE}) do
-      nil -> changeset
-      _account -> add_error(changeset, :cpf, "There is already an account for the cpf informed")
+    if is_nil(cpf) do
+      changeset
+    else
+      case Loader.get_by(%{cpf_hash: cpf, status: :COMPLETE}) do
+        nil -> changeset
+        _account -> add_error(changeset, :cpf, "There is already an account for the cpf informed")
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :bank, BankWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "app-elixir-banking.herokuapp.com", port: 443],
+  url: [host: "banking.henriquesacramento.net", port: 80],
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 config :joken, default_signer: System.get_env("JOKEN_SIGNER")
